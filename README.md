@@ -1,24 +1,24 @@
-# Web Client (Blazor WASM)
+# Passwordmanager (password-manager-web)
 
-## Overview
-Das Web-Frontend auf Basis von Blazor WebAssembly. Diese Applikation dient als Benutzeroberfläche und nutzt die zentrale **Core Library** für sämtliche kryptographischen Operationen und API-Kommunikation.
+## Install the dependencies
 
-## Features
-* **UI/UX:** Responsive Dashboard für den Tresor-Zugriff.
-* **Forms:** Validierte Formulare für Login, Registrierung und Datenerfassung.
-* **Vault View:** Übersichtliche Darstellung und Verwaltung verschlüsselter Einträge.
-* **Core Integration:** Nutzt die plattformunabhängige Library für maximale Sicherheit.
+```bash
+pnpm install
+# or: yarn/npm/bun install
+```
 
-## Tech Stack
-* **Framework:** Blazor WebAssembly (.NET)
-* **Styling:** Tailwind CSS
-* **Security:** JS Interop zur Einbindung von WebCrypto APIs (falls erforderlich).
-* **Logic:** Shared Business Logic via Client-Core.
+### Start the app in development mode (HMR, error reporting, etc.)
 
-## Project Structure
-```text
-src/
- ├── Pages           # Razor Pages (Login, Vault, Settings)
- ├── Components      # Reusable UI Elements (Modals, Inputs)
- ├── Shared          # Layouts und Navigation
- ├── wwwroot         # Tailwind CSS, Static Assets
+```bash
+quasar dev
+```
+
+### Build the app for production
+
+```bash
+quasar build
+```
+
+### Customize the configuration
+
+See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-file).
