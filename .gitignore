@@ -1,0 +1,51 @@
+# ==========================================
+# .NET / C# / MAUI
+# ==========================================
+# Build-Ordner (Die Ordner, die wir gerade löschen mussten)
+[Bb]in/
+[Oo]bj/
+
+# publish-Ordner
+[Pp]ublish/
+[Oo]ut/
+
+# ==========================================
+# JetBrains Rider
+# ==========================================
+# Ignoriert die lokalen Einstellungen deiner IDE
+.idea/
+*.sln.iml
+*.idea
+
+# ==========================================
+# Benutzerspezifische Dateien
+# ==========================================
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ==========================================
+# Mobile Artefakte (Android / iOS)
+# ==========================================
+# Verhindert, dass fertige App-Pakete in Git landen
+*.apk
+*.aab
+*.ipa
+
+# ==========================================
+# Umgebungsvariablen & Secrets
+# ==========================================
+# Wichtig für lokale Konfigurationen und Passwörter
+.env
+.env.*
+*.secret
+
+# ==========================================
+# OS-spezifische Dateien
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+[Tt]humbs.db

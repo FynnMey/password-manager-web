@@ -1,0 +1,8 @@
+﻿<maui:MauiWinUIApplication
+    x:Class="password_manager_web.WinUI.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:maui="using:Microsoft.Maui"
+    xmlns:local="using:password_manager_web.WinUI">
+
+</maui:MauiWinUIApplication>
