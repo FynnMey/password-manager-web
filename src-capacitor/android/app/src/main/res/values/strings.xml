@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Passwordmanager</string>
+    <string name="title_activity_main">Passwordmanager</string>
+    <string name="package_name">org.password.manager.app</string>
+    <string name="custom_url_scheme">org.password.manager.app</string>
+</resources>

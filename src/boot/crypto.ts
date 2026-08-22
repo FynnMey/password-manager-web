@@ -4,34 +4,26 @@ import { useCryptoStore } from '@/stores/cryptoStore'
 export default defineBoot(({ store }) => {
   const coreStore = useCryptoStore(store)
 
-  void initializeCore(coreStore)
+  initializeCore(coreStore).catch(console.error)
 })
 
 async function initializeCore(coreStore: ReturnType<typeof useCryptoStore>) {
   try {
-    const dotnetUrl = `${window.location.origin}/wasm/dotnet.js`
-    const { dotnet } = await import(/* @vite-ignore */ dotnetUrl)
+    const worker = new Worker(new URL('../workers/vault-worker.js', import.meta.url), { type: 'module' });
 
-    const { getAssemblyExports, getConfig } = await dotnet.create()
-    const config = getConfig()
-    const exports = await getAssemblyExports(config.mainAssemblyName)
+    worker.onerror = (errorEvent) => {
+      console.error('🚨 Fataler Worker-Fehler:', errorEvent.message, 'in Zeile', errorEvent.lineno);
+    };
 
-    console.log("coreStore.vaultSalt: ", coreStore.vaultSalt)
+    coreStore.setupWorker(worker);
 
-    coreStore.vaultSalt = exports.VaultInterop.OpenVault(
-      'uzsdfvduzsvgds',
-      coreStore.vaultSalt
-    )
+    await coreStore.initWorker();
 
-    const encrypted = exports.VaultInterop.EncryptData("test")
-    const encrypted2 = exports.VaultInterop.EncryptData("test2")
+    await coreStore.openVault('uzsdfvduzsvgds');
 
-    console.log(encrypted)
-    console.log(encrypted2)
-    console.log(exports.VaultInterop.DecryptData(encrypted))
+    coreStore.isReady = true;
 
-    console.log('Vault geöffnet')
   } catch (error) {
-    console.error('Fehler beim WASM-Laden:', error)
+    console.error('Fehler beim Worker-Start:', error)
   }
 }
