@@ -2,11 +2,14 @@
 import {useDrawerStore} from "@/stores/drawerStore";
 import {storeToRefs} from "pinia";
 import DesktopNavigationMenu from "@/components/header/navigation/DesktopNavigationMenu.vue";
+import {useUserStore} from "@/stores/userStore";
 
 const drawerStore = useDrawerStore()
 const { navigationDrawer } = storeToRefs(drawerStore)
 
-function toggleLeftDrawer() {
+const user = useUserStore()
+
+const toggleLeftDrawer = () => {
   navigationDrawer.value = !navigationDrawer.value;
 }
 </script>
@@ -15,6 +18,7 @@ function toggleLeftDrawer() {
   <q-header elevated>
     <q-toolbar>
       <q-btn
+        v-if="user.isAuthenticated"
         flat
         dense
         round
