@@ -27,6 +27,11 @@ const handleLogin = async () => {
   const isLogin = await user.login(email.value, password.value)
 
   if (isLogin) {
+    console.log('Strind: ', user.canaryValue)
+    if (!user.canaryValue) {
+      router.push('/create/masterPassword')
+      return
+    }
     router.push('/')
 
     return
@@ -61,6 +66,8 @@ const handleLogin = async () => {
 
         <div>
           <basic-button
+            label="Anmelden"
+            icon="key"
             :disable="!email || !password"
           />
         </div>

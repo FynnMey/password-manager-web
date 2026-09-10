@@ -37,11 +37,19 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       Record<never, never>,
       | '//(index)'
+      | '//create/masterPassword'
       | '//login'
     >,
     '//(index)': RouteRecordInfo<
       '//(index)',
       '/',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '//create/masterPassword': RouteRecordInfo<
+      '//create/masterPassword',
+      '/create/masterPassword',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -77,6 +85,7 @@ declare module 'vue-router/auto-routes' {
       routes:
         | '/'
         | '//(index)'
+        | '//create/masterPassword'
         | '//login'
       views:
         | 'default'
@@ -86,6 +95,14 @@ declare module 'vue-router/auto-routes' {
     'src/pages/index/(index).vue': {
       routes:
         | '//(index)'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/pages/index/create/masterPassword.vue': {
+      routes:
+        | '//create/masterPassword'
       views:
         | never
       pathParamNames:

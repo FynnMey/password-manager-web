@@ -2,6 +2,8 @@
 const isLoading = defineModel<boolean>('loading')
 
 withDefaults(defineProps<{
+  label?: string,
+  icon?: string,
   disable?: boolean
 }>(), {
 
@@ -11,11 +13,11 @@ withDefaults(defineProps<{
 <template>
   <q-btn
     type="submit"
-    label="Login"
+    :label="label"
     color="secondary"
     class="full-width q-pa-sm"
     rounded
-    icon="key"
+    :icon="icon"
     :loading="isLoading"
     :disable="disable"
   />

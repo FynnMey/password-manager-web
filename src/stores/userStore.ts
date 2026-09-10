@@ -1,24 +1,11 @@
 import { defineStore } from 'pinia'
 import {Http} from "@/services/http/Http";
 import {LoginRequest} from "@/types/Request/LoginRequest";
-import {useRouter} from "vue-router";
 import {useNotificationAdapter} from "@/composabiles/adapter/notification/useNotificationAdapter";
-
-export interface UserState {
-  id: string | number | null
-  name: string
-  lastname: string
-  email: string
-  salt: string
-  token: string | null
-  isPremium: boolean
-  isAdmin: boolean
-
-  accesToken: string | null
-}
+import {UserStore} from "@/types/store/UserStore";
 
 export const useUserStore = defineStore('userStore', {
-  state: (): UserState => ({
+  state: (): UserStore => ({
     id: null,
     name: '',
     lastname: '',
@@ -27,6 +14,7 @@ export const useUserStore = defineStore('userStore', {
     token: null,
     isPremium: false,
     isAdmin: false,
+    canaryValue: '',
 
     accesToken: null,
   }),
@@ -49,6 +37,7 @@ export const useUserStore = defineStore('userStore', {
         this.lastname = user.lastname
         this.isAdmin = user.isAdmin
         this.isPremium = user.isPremium
+        this.canaryValue = user.canaryValue
 
         this.accesToken = req.accesToken
 
