@@ -9,5 +9,5 @@ export interface UserStore {
   isAdmin: boolean
   canaryValue: string
 
-  accesToken: string | null
+  accessToken: string | null
 }

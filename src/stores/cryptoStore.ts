@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { vaultService } from '@/services/vault/Vault'
+import { useUserStore } from "@/stores/userStore";
 
 export const useCryptoStore = defineStore('cryptoStore', {
   state: () => ({
-    vaultSalt: '',
     isUnlocked: false,
     isReady: true
   }),
@@ -15,8 +15,9 @@ export const useCryptoStore = defineStore('cryptoStore', {
 
   actions: {
     async openVault(password: string): Promise<string> {
-      const salt = await vaultService.open(password, this.vaultSalt || undefined)
-      this.vaultSalt = salt
+      const user = useUserStore()
+      const salt = await vaultService.open(password, user.salt || undefined)
+      user.salt = salt
       this.isUnlocked = vaultService.isOpen
       return salt
     },
@@ -37,7 +38,6 @@ export const useCryptoStore = defineStore('cryptoStore', {
     async resetVault(): Promise<void> {
       vaultService.close()
       this.isUnlocked = false
-      this.vaultSalt = ''
     }
   }
 })

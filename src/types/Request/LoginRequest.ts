@@ -1,12 +1,13 @@
 export type LoginRequest = {
-  accesToken: string,
+  accessToken: string
   user: {
-    id: number,
-    isAdmin: boolean,
-    isPremium: boolean,
-    lastname: string,
+    id: number
+    isAdmin: boolean
+    isPremium: boolean
+    lastName: string
     canaryValue: string
-    name: string,
-    email: string,
+    salt: string
+    name: string
+    email: string
   }
 }

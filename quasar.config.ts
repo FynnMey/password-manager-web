@@ -7,6 +7,7 @@ export default defineConfig((ctx) => {
   return {
     boot: [
       'auth',
+      'openVault',
       'i18n',
       'darkmode'
     ],

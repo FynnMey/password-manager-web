@@ -1,0 +1,40 @@
+.text-muted {
+  color: $text-muted;
+}
+
+.text-body {
+  color: $text-primary;
+}
+
+.bg-surface {
+  background: $surface;
+}
+
+.bg-subtle {
+  background: rgba(42, 45, 62, 0.4);
+}
+
+.border-subtle {
+  border: 1px solid $border;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, $primary 0%, $accent 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+}
+
+.glow-primary {
+  box-shadow: 0 0 24px rgba($primary, 0.4);
+}
+
+.glass-surface {
+  background: rgba(26, 29, 39, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}

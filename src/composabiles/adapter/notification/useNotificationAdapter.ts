@@ -22,7 +22,17 @@ export const useNotificationAdapter = () => {
     })
   }
 
+  const success = (message: string) => {
+    notify.create({
+      message,
+      position: isMobile ? 'top' : 'bottom',
+      type: 'positive',
+      icon: 'check',
+    })
+  }
+
   return {
+    success,
     error,
     warning
   }

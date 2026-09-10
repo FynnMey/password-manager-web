@@ -1,1 +1,30 @@
-// app global css
+@import 'colors';
+@import 'typography';
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: $dark-page;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $border;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $primary;
+}
+
+::selection {
+  background: rgba($primary, 0.3);
+  color: $text-primary;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 0.01em;
+}

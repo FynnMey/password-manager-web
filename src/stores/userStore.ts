@@ -16,7 +16,7 @@ export const useUserStore = defineStore('userStore', {
     isAdmin: false,
     canaryValue: '',
 
-    accesToken: null,
+    accessToken: null,
   }),
 
   getters: {
@@ -34,12 +34,13 @@ export const useUserStore = defineStore('userStore', {
         this.id = user.id
         this.email = user.email
         this.name = user.name
-        this.lastname = user.lastname
+        this.lastname = user.lastName
         this.isAdmin = user.isAdmin
         this.isPremium = user.isPremium
         this.canaryValue = user.canaryValue
+        this.salt = user.salt
 
-        this.accesToken = req.accesToken
+        this.accessToken = req.accessToken
 
         return true
       } catch (_err) {
@@ -50,7 +51,12 @@ export const useUserStore = defineStore('userStore', {
       }
     },
 
-    logout() {
+    async logout() {
+      const http = new Http()
+      const email = ''
+      const password = ''
+      await http.post<LoginRequest>('/api/auth/logout', { email, password })
+
       this.id = null
       this.name = ''
       this.lastname = ''

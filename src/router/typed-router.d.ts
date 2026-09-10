@@ -39,6 +39,8 @@ declare module 'vue-router/auto-routes' {
       | '//(index)'
       | '//create/masterPassword'
       | '//login'
+      | '//logout'
+      | '//open/vault'
     >,
     '//(index)': RouteRecordInfo<
       '//(index)',
@@ -57,6 +59,20 @@ declare module 'vue-router/auto-routes' {
     '//login': RouteRecordInfo<
       '//login',
       '/login',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '//logout': RouteRecordInfo<
+      '//logout',
+      '/logout',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '//open/vault': RouteRecordInfo<
+      '//open/vault',
+      '/open/vault',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -87,6 +103,8 @@ declare module 'vue-router/auto-routes' {
         | '//(index)'
         | '//create/masterPassword'
         | '//login'
+        | '//logout'
+        | '//open/vault'
       views:
         | 'default'
       pathParamNames:
@@ -111,6 +129,22 @@ declare module 'vue-router/auto-routes' {
     'src/pages/index/login.vue': {
       routes:
         | '//login'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/pages/index/logout.vue': {
+      routes:
+        | '//logout'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/pages/index/open/vault.vue': {
+      routes:
+        | '//open/vault'
       views:
         | never
       pathParamNames:
