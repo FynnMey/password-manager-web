@@ -7,11 +7,18 @@ import BasicButton from '@/components/common/button/BasicButton.vue'
 import BasicIconBox from '@/components/common/icon/BasicIconBox.vue'
 import BasicIcon from '@/components/common/icon/BasicIcon.vue'
 import BasicErrorBanner from '@/components/common/error/BasicErrorBanner.vue'
+import {Http} from "@/services/http/Http";
 
 const input = ref('')
 const encryptedResult = ref('')
 const decryptedResult = ref('')
 const errorMessage = ref('')
+
+const http = new Http()
+onMounted(async () => {
+  const vault = await http.post('/api/user/password/get-all', {})
+  console.log(vault)
+})
 
 const cryptoStore = useCryptoStore()
 
@@ -31,6 +38,13 @@ const encure = async () => {
 
 <template>
   <div class="dashboard">
+    <basic-card>
+      <basic-button
+        label="Neues Password"
+        to="/create/password"
+      />
+    </basic-card>
+
     <basic-card variant="default" max-width="100%">
       <div class="row items-center q-gutter-sm q-mb-lg">
         <basic-icon-box size="sm" variant="soft">

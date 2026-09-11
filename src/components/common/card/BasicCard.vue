@@ -52,7 +52,7 @@ withDefaults(defineProps<{
   &--elevated {
     background: $surface;
     border: 1px solid $border;
-    box-shadow:
+    box-shadow: vsdxc
       0 8px 32px rgba(0, 0, 0, 0.5),
       0 0 60px rgba($primary, 0.1);
 
