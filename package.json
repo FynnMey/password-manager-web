@@ -8,6 +8,7 @@
   "private": true,
   "scripts": {
     "dev": "quasar dev",
+    "devBex": "quasar dev -m bex",
     "build": "quasar build",
     "typecheck": "vue-tsc --noEmit",
     "postinstall": "quasar prepare --silent"
@@ -24,7 +25,7 @@
   },
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "^11.0.0",
-    "@quasar/app-vite": "^3.6.1",
+    "@quasar/app-vite": "^3.8.3",
     "@types/node": "^22.19.11",
     "autoprefixer": "^10.4.27",
     "postcss": "^8.5.8",

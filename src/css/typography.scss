@@ -52,3 +52,25 @@
   word-break: break-all;
   line-height: 1.6;
 }
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.empty-state-text {
+  font-size: 13px;
+  color: $text-muted;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.list-item-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.list-item-caption {
+  font-size: 12px;
+  color: $text-muted;
+}

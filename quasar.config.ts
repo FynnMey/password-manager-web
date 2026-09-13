@@ -1,6 +1,3 @@
-// Configuration for your app
-// https://v2.quasar.dev/quasar-cli-vite/quasar-config-file
-
 import { defineConfig } from '#q-app'
 
 export default defineConfig((ctx) => {
@@ -83,7 +80,20 @@ export default defineConfig((ctx) => {
       }
     },
     bex: {
-      extraScripts: []
+      extraScripts: [],
+
+      extendBexScriptsConf (rolldownConfig) {
+        if (process.platform === 'win32') {
+          rolldownConfig.resolve = rolldownConfig.resolve ?? {}
+          rolldownConfig.resolve.alias = {
+            '#q-app/bex/background': '@quasar/app-vite/bex/background',
+            '#q-app/bex/content': '@quasar/app-vite/bex/content',
+            ...rolldownConfig.resolve.alias
+          }
+        }
+        // Do NOT return the config object — extendRolldownConfig() would
+        // deep-merge it again, duplicating arrays like transform.target.
+      }
     }
   }
 });
