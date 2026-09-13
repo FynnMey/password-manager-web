@@ -13,6 +13,7 @@ export class Http {
     const headers = {
       'Content-Type': 'application/json',
       ...options.headers,
+      credentials: "include"
     }
 
     try {

@@ -58,7 +58,6 @@ const handleLogin = async () => {
           v-model="email"
           v-model:disable="isLoading"
           icon="alternate_email"
-          type="email"
           class="col-12"
           label="E-Mail Adresse"
         />
