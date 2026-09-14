@@ -56,7 +56,6 @@ const canSave = () => accountMail.value.length > 0 && accountPassword.value.leng
   <div class="flex flex-center">
     <basic-card max-width="520px">
 
-      <!-- Header -->
       <div class="q-mb-lg">
         <basic-icon-box size="md" variant="gradient" class="q-mb-md">
           <basic-icon name="add_circle_outline" size="22px" color="white" />
@@ -69,7 +68,6 @@ const canSave = () => accountMail.value.length > 0 && accountPassword.value.leng
 
       <q-form @submit.prevent="save" class="row q-col-gutter-md">
 
-        <!-- Abschnitt: Allgemein -->
         <div class="col-12">
           <div class="section-label q-mb-sm">Allgemein</div>
         </div>
@@ -82,7 +80,6 @@ const canSave = () => accountMail.value.length > 0 && accountPassword.value.leng
           :disable="isLoading"
         />
 
-        <!-- Trennlinie -->
         <div class="col-12">
           <basic-divider label="Login-Daten" />
         </div>
@@ -104,7 +101,6 @@ const canSave = () => accountMail.value.length > 0 && accountPassword.value.leng
           :disable="isLoading"
         />
 
-        <!-- Passwort-Generator -->
         <div class="col-12">
           <basic-button
             label="Sicheres Passwort generieren"
@@ -117,7 +113,6 @@ const canSave = () => accountMail.value.length > 0 && accountPassword.value.leng
           />
         </div>
 
-        <!-- Trennlinie -->
         <div class="col-12">
           <basic-divider label="Weitere Infos" />
         </div>
@@ -139,7 +134,6 @@ const canSave = () => accountMail.value.length > 0 && accountPassword.value.leng
           :disable="isLoading"
         />
 
-        <!-- Speichern -->
         <div class="col-12">
           <basic-button
             label="Passwort speichern"

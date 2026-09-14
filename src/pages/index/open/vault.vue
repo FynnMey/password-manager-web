@@ -46,7 +46,6 @@ const openVault = async () => {
 <template>
   <div class="flex flex-center full-height">
     <basic-card>
-      <!-- Header -->
       <div class="text-center q-mb-xl">
         <basic-icon-box size="lg" variant="gradient" class="q-mx-auto q-mb-lg">
           <basic-icon name="lock" size="28px" color="white" />
@@ -57,7 +56,6 @@ const openVault = async () => {
         </div>
       </div>
 
-      <!-- Form -->
       <q-form @submit.prevent="openVault" class="row q-col-gutter-md">
         <basic-input
           v-model="masterPassword"
@@ -80,7 +78,6 @@ const openVault = async () => {
         </div>
       </q-form>
 
-      <!-- Security footer -->
       <div class="q-mt-xl">
         <basic-divider label="Sicherheit" />
         <div class="row items-center justify-center q-mt-md q-gutter-xs">
