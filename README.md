@@ -1,5 +1,9 @@
 # Passwordmanager (password-manager-web)
 
+> [!NOTE]
+> **Status: In Entwicklung / Work in Progress**
+> Die Anwendung ist noch nicht fertiggestellt. Einige Features und Funktionen werden derzeit noch aktiv bearbeitet und erweitert.
+
 ## Install the dependencies
 
 ```bash
