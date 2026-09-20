@@ -6,7 +6,7 @@ export type VaultRequest = {
   email: string
   password: string
   website: string
-  notes: string
+  note: string
   collectionId: number | undefined
   collection: null
   createdAt: string

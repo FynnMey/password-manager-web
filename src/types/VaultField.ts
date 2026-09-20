@@ -3,7 +3,7 @@ export type VaultField = {
   account: string
   password: string
   website: string
-  notes: string
+  note: string
   createdAt: string
   editedAt: string
 }

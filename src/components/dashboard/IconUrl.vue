@@ -6,6 +6,9 @@ import BasicIcon from "@/components/common/icon/BasicIcon.vue";
 
 const props = defineProps<{
   url: string
+  height?: string
+  width?: string
+  noFullWidth?: boolean
 }>()
 
 const image = ref<null | string>(null)
@@ -14,7 +17,7 @@ const http = new Http()
 http.post<string>('api/icon', {
   url: props.url,
 }).then(res => {
-  image.value = res
+  image.value = res.data
 }).catch(() => {
   image.value = null
 }
@@ -22,8 +25,8 @@ http.post<string>('api/icon', {
 </script>
 
 <template>
-  <div v-if="image" class="full-width full-height q-pa-sm">
-    <q-img :src="image" fit="cover" class="q-pa-sm" />
+  <div v-if="image" :class="[noFullWidth ? '' : 'full-width', 'full-height q-pa-sm']">
+    <q-img :src="image" fit="cover" class="q-pa-sm" :height="height" :width="width" />
   </div>
 
   <basic-icon-box v-else size="xs" variant="soft">

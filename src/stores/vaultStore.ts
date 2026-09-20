@@ -19,12 +19,14 @@ export const useVaultStore = defineStore('vaultStore', {
       if (vault) {
         this.vault = []
         vault.map(field => {
+
+          console.log(field)
           const vaultField: VaultField = {
             name: field.name,
             account: field.email,
             password: field.password,
             website: field.website,
-            notes: field.notes,
+            note: field.note,
             createdAt: field.createdAt,
             editedAt: field.editedAt
           }

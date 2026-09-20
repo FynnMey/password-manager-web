@@ -28,7 +28,7 @@ watchEffect(async () => {
     account: await decrypt(item.account),
     website: await decrypt(item.website),
     password: await decrypt(item.password),
-    notes: await decrypt(item.notes),
+    note: await decrypt(item.note),
     createdAt: item.createdAt,
     editedAt: item.editedAt,
   }))

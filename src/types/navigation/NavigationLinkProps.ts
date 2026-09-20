@@ -1,6 +1,6 @@
 export interface NavigationLinkProps {
   label: string;
-  caption?: string;
-  link?: string;
-  icon?: string;
+  caption?: string | undefined;
+  link?: string | undefined;
+  icon?: string | undefined;
 }

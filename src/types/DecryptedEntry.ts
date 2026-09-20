@@ -3,7 +3,7 @@ export type DecryptedEntry = {
   account: string
   website: string
   password: string
-  notes: string
+  note: string
   createdAt: string
   editedAt: string
 }

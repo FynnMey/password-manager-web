@@ -1,11 +1,11 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
 import BasicCard from '@/components/common/card/BasicCard.vue'
 import BasicButton from '@/components/common/button/BasicButton.vue'
 import BasicIcon from '@/components/common/icon/BasicIcon.vue'
 import BasicIconBox from '@/components/common/icon/BasicIconBox.vue'
 import BasicBadge from '@/components/common/badge/BasicBadge.vue'
 import PasswordList from '@/components/dashboard/PasswordList.vue'
-import PasswordDetails from "@/components/dashboard/password-details.vue";
+import PasswordDetails from "@/components/dashboard/PasswordDetails.vue"
 </script>
 
 <template>

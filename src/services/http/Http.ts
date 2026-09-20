@@ -1,4 +1,5 @@
 import {useUserStore} from "@/stores/userStore";
+import {ReturnType} from "@/types/Request/ReturnType";
 
 export class Http {
   private readonly baseUrl: string
@@ -37,10 +38,10 @@ export class Http {
     }
   }
 
-  public post<T>(endpoint: string, body: unknown, headers?: HeadersInit): Promise<T> {
+  public post<T>(endpoint: string, body: unknown, headers?: HeadersInit): Promise<ReturnType<T>> {
     const user = useUserStore()
 
-    return this.request<T>(endpoint, {
+    return this.request<ReturnType<T>>(endpoint, {
       method: 'POST',
       body: JSON.stringify(body),
       ...(headers ? { headers } : {
