@@ -3,10 +3,12 @@ import {VaultStore} from "@/types/store/VaultStore"
 import {VaultField} from "@/types/VaultField"
 import {Http} from "@/services/http/Http";
 import {VaultRequest} from "@/types/Request/VaultRequest";
+import {DecryptedEntry} from "@/types/DecryptedEntry";
 
 export const useVaultStore = defineStore('vaultStore', {
   state: (): VaultStore => ({
-    vault: []
+    vault: [],
+    activeField: null
   }),
 
   actions: {
@@ -22,7 +24,9 @@ export const useVaultStore = defineStore('vaultStore', {
             account: field.email,
             password: field.password,
             website: field.website,
-            notes: field.notes
+            notes: field.notes,
+            createdAt: field.createdAt,
+            editedAt: field.editedAt
           }
 
           this.vault = [...this.vault, vaultField]
@@ -36,8 +40,14 @@ export const useVaultStore = defineStore('vaultStore', {
         account: field.email,
         password: field.password,
         website: field.website,
-        notes: field.notes
+        notes: field.notes,
+        createdAt: field.createdAt,
+        editedAt: field.editedAt
       }]
+    },
+
+    activateField(field: DecryptedEntry) {
+      this.activeField = field
     }
   },
 })

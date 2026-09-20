@@ -5,6 +5,7 @@ import BasicIcon from '@/components/common/icon/BasicIcon.vue'
 import BasicIconBox from '@/components/common/icon/BasicIconBox.vue'
 import BasicBadge from '@/components/common/badge/BasicBadge.vue'
 import PasswordList from '@/components/dashboard/PasswordList.vue'
+import PasswordDetails from "@/components/dashboard/password-details.vue";
 </script>
 
 <template>
@@ -48,7 +49,7 @@ import PasswordList from '@/components/dashboard/PasswordList.vue'
       <div class="col-12 col-md-8">
         <password-list />
       </div>
-
+      <password-details />
     </div>
   </div>
 </template>

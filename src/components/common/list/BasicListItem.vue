@@ -1,11 +1,13 @@
 ﻿<script setup lang="ts">
 import BasicIconBox from '@/components/common/icon/BasicIconBox.vue'
 import BasicIcon from '@/components/common/icon/BasicIcon.vue'
+import IconUrl from "@/components/dashboard/IconUrl.vue";
 
 withDefaults(defineProps<{
   label?: string
   caption?: string
   icon?: string
+  website?: string
   iconColor?: 'primary' | 'secondary' | 'accent' | 'muted' | 'positive' | 'negative' | 'warning' | 'white'
   clickable?: boolean
   active?: boolean
@@ -28,10 +30,8 @@ defineEmits<{
     v-ripple="clickable ? { color: 'rgba(99,102,241,0.15)' } : false"
     @click="$emit('click')"
   >
-    <q-item-section v-if="icon" avatar class="basic-list-item__icon-section">
-      <basic-icon-box size="xs" variant="soft">
-        <basic-icon :name="icon" size="16px" :color="active ? 'secondary' : iconColor" />
-      </basic-icon-box>
+    <q-item-section v-if="website" avatar class="">
+      <icon-url :url="website" />
     </q-item-section>
 
     <q-item-section>

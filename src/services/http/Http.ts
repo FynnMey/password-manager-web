@@ -13,28 +13,28 @@ export class Http {
     const headers = {
       'Content-Type': 'application/json',
       ...options.headers,
-      credentials: "include"
     }
 
     try {
-      const response = await fetch(url, { ...options, headers })
+      const response = await fetch(url, { ...options, headers, credentials: 'include' })
 
       if (!response.ok)
         throw new Error(`HTTP Error ${response.status}: ${response.statusText}`)
 
       const text = await response.text()
-      return text ? (JSON.parse(text) as T) : ({} as T)
+      if (!text) return {} as T
+
+      const contentType = response.headers.get('content-type')
+      if (contentType && contentType.includes('application/json')) {
+        return JSON.parse(text) as T
+      }
+
+      return text as unknown as T
+
     } catch (error) {
       console.error(`[HTTP Adapter] Fehler bei ${options.method || 'GET'} ${url}`, error)
       throw error
     }
-  }
-
-  public get<T>(endpoint: string, headers?: HeadersInit): Promise<T> {
-    return this.request<T>(endpoint, {
-      method: 'GET',
-      ...(headers ? { headers } : {})
-    })
   }
 
   public post<T>(endpoint: string, body: unknown, headers?: HeadersInit): Promise<T> {

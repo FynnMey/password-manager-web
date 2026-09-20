@@ -1,8 +1,8 @@
-export type VaultField = {
+export type DecryptedEntry = {
   name: string
   account: string
-  password: string
   website: string
+  password: string
   notes: string
   createdAt: string
   editedAt: string

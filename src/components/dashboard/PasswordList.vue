@@ -5,20 +5,19 @@ import { useCryptoStore } from '@/stores/cryptoStore'
 import { ref, watchEffect } from 'vue'
 import BasicListItem from '@/components/common/list/BasicListItem.vue'
 import BasicIcon from '@/components/common/icon/BasicIcon.vue'
-import BasicBadge from "@/components/common/badge/BasicBadge.vue";
+import BasicBadge from "@/components/common/badge/BasicBadge.vue"
+import {DecryptedEntry} from "@/types/DecryptedEntry";
 
 const vaultStore = useVaultStore()
 const { vault } = storeToRefs(vaultStore)
 
 const crypto = useCryptoStore()
 
-const decrypt = async (value: string) => {
-  return await crypto.decrypt(value)
-}
+const decrypt = async (value: string | null) => {
+  if (!value)
+    return ''
 
-interface DecryptedEntry {
-  name: string
-  account: string
+  return await crypto.decrypt(value)
 }
 
 const decryptedVault = ref<DecryptedEntry[]>([])
@@ -27,7 +26,13 @@ watchEffect(async () => {
   const promises = vault.value.map(async (item) => ({
     name: await decrypt(item.name),
     account: await decrypt(item.account),
+    website: await decrypt(item.website),
+    password: await decrypt(item.password),
+    notes: await decrypt(item.notes),
+    createdAt: item.createdAt,
+    editedAt: item.editedAt,
   }))
+
   decryptedVault.value = await Promise.all(promises)
 })
 </script>
@@ -47,10 +52,11 @@ watchEffect(async () => {
         :key="`vault-${index}`"
         :label="item.name"
         :caption="item.account"
+        :website="item.website"
         class="non-selectable"
-        icon="lock"
         clickable
         border
+        @click="vaultStore.activateField(item)"
       >
         <template #right>
           <basic-icon name="chevron_right" size="18px" color="muted" />
