@@ -2,11 +2,11 @@ export type VaultRequest = {
   id: string
   userId: string
   user: null
-  name: string
-  email: string
-  password: string
-  website: string
-  note: string
+  encryptedName: string
+  encryptedEmail: string
+  encryptedPassword: string
+  encryptedWebsite: string
+  encryptedNote: string
   collectionId: number | undefined
   collection: null
   createdAt: string

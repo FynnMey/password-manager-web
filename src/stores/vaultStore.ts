@@ -16,17 +16,15 @@ export const useVaultStore = defineStore('vaultStore', {
       const http = new Http()
 
       const vault = await http.post<VaultRequest[]>('/api/user/password/get-all', {})
-      if (vault) {
+      if (vault.success) {
         this.vault = []
-        vault.map(field => {
-
-          console.log(field)
+        vault.data.map(field => {
           const vaultField: VaultField = {
-            name: field.name,
-            account: field.email,
-            password: field.password,
-            website: field.website,
-            note: field.note,
+            name: field.encryptedName,
+            account: field.encryptedEmail,
+            password: field.encryptedPassword,
+            website: field.encryptedWebsite,
+            note: field.encryptedNote,
             createdAt: field.createdAt,
             editedAt: field.editedAt
           }
@@ -38,11 +36,11 @@ export const useVaultStore = defineStore('vaultStore', {
 
     addSingleVault(field: VaultRequest) {
       this.vault = [...this.vault, {
-        name: field.name,
-        account: field.email,
-        password: field.password,
-        website: field.website,
-        notes: field.notes,
+        name: field.encryptedName,
+        account: field.encryptedEmail,
+        password: field.encryptedPassword,
+        website: field.encryptedWebsite,
+        note: field.encryptedNote,
         createdAt: field.createdAt,
         editedAt: field.editedAt
       }]

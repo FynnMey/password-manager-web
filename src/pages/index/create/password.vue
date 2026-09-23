@@ -34,14 +34,19 @@ const save = async () => {
   const notify = useNotificationAdapter()
 
   await http.post<VaultRequest>('/api/user/password/create', {
-    name: await cryptoStore.encrypt(name.value),
-    email: await cryptoStore.encrypt(accountMail.value),
-    password: await cryptoStore.encrypt(accountPassword.value),
-    website: await cryptoStore.encrypt(website.value),
-    note: await cryptoStore.encrypt(note.value),
+    encryptedName: await cryptoStore.encrypt(name.value),
+    encryptedEmail: await cryptoStore.encrypt(accountMail.value),
+    encryptedPassword: await cryptoStore.encrypt(accountPassword.value),
+    encryptedWebsite: await cryptoStore.encrypt(website.value),
+    encryptedNote: await cryptoStore.encrypt(note.value),
   }).then((result) => {
-    vaultStore.addSingleVault(result)
-    notify.success('Passwort erfolgreich gespeichert')
+    if (result.success) {
+      vaultStore.addSingleVault(result.data)
+      notify.success('Passwort erfolgreich gespeichert')
+
+      return
+    }
+    notify.error('Passwort konnte nicht gespeichert werden')
   }).catch(() => {
     notify.error('Passwort konnte nicht gespeichert werden')
   }).finally(() => {
