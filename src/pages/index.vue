@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import DefaultHeader from '@/components/header/DefaultHeader.vue'
+import {useQuasar} from "quasar";
+
+const $q = useQuasar()
 </script>
 
 <template>
-  <q-layout view="lHh Lpr lFf" class="vault-layout">
+  <q-layout view="lHh Lpr lFf" :class="['vault-layout', $q.platform.is.bex ? 'bex-layout' : '']">
     <default-header />
 
     <q-page-container>
@@ -51,6 +54,11 @@ import DefaultHeader from '@/components/header/DefaultHeader.vue'
       animation-delay: -4s;
     }
   }
+}
+
+.bex-layout {
+  min-height: 600px;
+  min-width: 600px;
 }
 
 @keyframes blob-float {

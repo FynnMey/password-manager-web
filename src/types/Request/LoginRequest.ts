@@ -1,13 +1,6 @@
+import {User} from "@/types/store/UserStore";
+
 export type LoginRequest = {
   accessToken: string
-  user: {
-    id: number
-    isAdmin: boolean
-    isPremium: boolean
-    lastName: string
-    canaryValue: string
-    salt: string
-    name: string
-    email: string
-  }
+  user: User
 }

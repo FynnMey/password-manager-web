@@ -8,10 +8,12 @@ export default defineConfig((ctx) => {
       'openVault',
       'getAllVaultFields',
       'i18n',
-      'darkmode'
+      'darkmode',
+      'passkey'
     ],
     css: [
-      'app.scss'
+      'app.scss',
+      ...(ctx.mode.bex ? ['bex-only.scss'] : [])
     ],
     extras: [
       'roboto-font',
