@@ -5,43 +5,58 @@ import BasicButton from '@/components/common/button/BasicButton.vue'
 import BasicIconBox from '@/components/common/icon/BasicIconBox.vue'
 import BasicIcon from '@/components/common/icon/BasicIcon.vue'
 import BasicDivider from '@/components/common/divider/BasicDivider.vue'
-import { ref } from 'vue'
+import {reactive, ref} from 'vue'
 import { usePassword } from '@/composabiles/usePassword'
 import { Http } from '@/services/http/Http'
 import { useCryptoStore } from '@/stores/cryptoStore'
 import { useNotificationAdapter } from '@/composabiles/adapter/notification/useNotificationAdapter'
 import { useVaultStore } from '@/stores/vaultStore'
 import { VaultRequest } from '@/types/Request/VaultRequest'
+import {VaultField} from "@/types/VaultField";
 
-const name = ref('')
-const accountMail = ref('')
-const accountPassword = ref('')
-const website = ref('')
-const note = ref('')
-const isLoading = ref(false)
+const { generatePassword } = usePassword()
+const notify = useNotificationAdapter()
 
-const randomPassword = () => {
-  const { generatePassword } = usePassword()
-  accountPassword.value = generatePassword()
-}
-
-const http = new Http()
 const cryptoStore = useCryptoStore()
 const vaultStore = useVaultStore()
 
+const http = new Http()
+
+const form = reactive({
+  name: '',
+  account: '',
+  password: '',
+  website: '',
+  note: '',
+  createdAt: '',
+  editedAt: '',
+})
+
+const isLoading = ref(false)
+
+const randomPassword = () => {
+  form.password = generatePassword()
+}
+
 const save = async () => {
   isLoading.value = true
-  const notify = useNotificationAdapter()
 
   await http.post<VaultRequest>('/api/user/password/create', {
-    encryptedName: await cryptoStore.encrypt(name.value),
-    encryptedEmail: await cryptoStore.encrypt(accountMail.value),
-    encryptedPassword: await cryptoStore.encrypt(accountPassword.value),
-    encryptedWebsite: await cryptoStore.encrypt(website.value),
-    encryptedNote: await cryptoStore.encrypt(note.value),
+    encryptedName: await cryptoStore.encrypt(form.name),
+    encryptedEmail: await cryptoStore.encrypt(form.account),
+    encryptedPassword: await cryptoStore.encrypt(form.password),
+    encryptedWebsite: await cryptoStore.encrypt(form.website),
+    encryptedNote: await cryptoStore.encrypt(form.note),
   }).then((result) => {
     if (result.success) {
-      vaultStore.addSingleVault(result.data)
+      vaultStore.addSingleField(
+        {
+          id: result.data.id,
+          ...form,
+          editedAt: result.data.editedAt,
+          createdAt: result.data.createdAt
+        }
+      )
       notify.success('Passwort erfolgreich gespeichert')
 
       return
@@ -54,7 +69,7 @@ const save = async () => {
   })
 }
 
-const canSave = () => accountMail.value.length > 0 && accountPassword.value.length > 0
+const canSave = () => form.account.length > 0 && form.password.length > 0
 </script>
 
 <template>
@@ -78,7 +93,7 @@ const canSave = () => accountMail.value.length > 0 && accountPassword.value.leng
         </div>
 
         <basic-input
-          v-model="name"
+          v-model="form.name"
           label="Name / Bezeichnung"
           icon="label_outline"
           class="col-12"
@@ -90,7 +105,7 @@ const canSave = () => accountMail.value.length > 0 && accountPassword.value.leng
         </div>
 
         <basic-input
-          v-model="accountMail"
+          v-model="form.account"
           label="E-Mail / Benutzername"
           icon="alternate_email"
           class="col-12"
@@ -98,7 +113,7 @@ const canSave = () => accountMail.value.length > 0 && accountPassword.value.leng
         />
 
         <basic-input
-          v-model="accountPassword"
+          v-model="form.password"
           label="Passwort"
           icon="lock_outline"
           type="password"
@@ -123,7 +138,7 @@ const canSave = () => accountMail.value.length > 0 && accountPassword.value.leng
         </div>
 
         <basic-input
-          v-model="website"
+          v-model="form.website"
           label="Webseite (optional)"
           icon="language"
           class="col-12"
@@ -131,7 +146,7 @@ const canSave = () => accountMail.value.length > 0 && accountPassword.value.leng
         />
 
         <basic-input
-          v-model="note"
+          v-model="form.note"
           label="Notiz (optional)"
           icon="notes"
           type="textarea"

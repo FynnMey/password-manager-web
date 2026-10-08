@@ -16,6 +16,7 @@ const props = withDefaults(defineProps<{
   required?: boolean
   error?: boolean
   errorMessage?: string
+  autogrow?: boolean
 }>(), {
   type: 'text',
   required: true,
@@ -37,6 +38,7 @@ const inputType = computed(() => {
       :label="label"
       :hint="hint"
       :disable="disable"
+      :autogrow="autogrow || type === 'textarea'"
       outlined
       dark
       dense
@@ -73,11 +75,17 @@ const inputType = computed(() => {
     background: rgba(26, 29, 39, 0.8) !important;
     border: 1px solid $border;
     transition: all 0.2s ease;
-    height: 48px;
+    min-height: 48px;
 
     &::before,
     &::after {
       border: none !important;
+    }
+  }
+
+  &:not(.q-textarea) {
+    :deep(.q-field__control) {
+      height: 48px;
     }
   }
 

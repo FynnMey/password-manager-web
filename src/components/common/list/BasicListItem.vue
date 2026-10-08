@@ -1,7 +1,5 @@
 ﻿<script setup lang="ts">
-import BasicIconBox from '@/components/common/icon/BasicIconBox.vue'
-import BasicIcon from '@/components/common/icon/BasicIcon.vue'
-import IconUrl from "@/components/dashboard/IconUrl.vue";
+import IconUrl from "@/components/dashboard/IconUrl.vue"
 
 withDefaults(defineProps<{
   label?: string
@@ -30,7 +28,7 @@ defineEmits<{
     v-ripple="clickable ? { color: 'rgba(99,102,241,0.15)' } : false"
     @click="$emit('click')"
   >
-    <q-item-section v-if="website" avatar class="">
+    <q-item-section avatar>
       <icon-url :url="website" />
     </q-item-section>
 

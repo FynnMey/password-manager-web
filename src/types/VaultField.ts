@@ -1,4 +1,5 @@
 export type VaultField = {
+  id: string
   name: string
   account: string
   password: string

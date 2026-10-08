@@ -1,62 +1,24 @@
 ﻿<script setup lang="ts">
 import { useVaultStore } from '@/stores/vaultStore'
-import { storeToRefs } from 'pinia'
-import { useCryptoStore } from '@/stores/cryptoStore'
-import { ref, watchEffect } from 'vue'
 import BasicListItem from '@/components/common/list/BasicListItem.vue'
 import BasicIcon from '@/components/common/icon/BasicIcon.vue'
-import BasicBadge from "@/components/common/badge/BasicBadge.vue"
-import {DecryptedEntry} from "@/types/DecryptedEntry";
 
 const vaultStore = useVaultStore()
-const { vault } = storeToRefs(vaultStore)
-
-const crypto = useCryptoStore()
-
-const decrypt = async (value: string | null) => {
-  if (!value)
-    return ''
-
-  return await crypto.decrypt(value)
-}
-
-const decryptedVault = ref<DecryptedEntry[]>([])
-
-watchEffect(async () => {
-  const promises = vault.value.map(async (item) => ({
-    name: await decrypt(item.name),
-    account: await decrypt(item.account),
-    website: await decrypt(item.website),
-    password: await decrypt(item.password),
-    note: await decrypt(item.note),
-    createdAt: item.createdAt,
-    editedAt: item.editedAt,
-  }))
-
-  decryptedVault.value = await Promise.all(promises)
-})
 </script>
 
 <template>
   <div class="password-list">
-    <div class="row items-center justify-between q-mb-md">
-      <div class="section-label">Gespeicherte Passwörter</div>
-      <basic-badge
-        :label="`${decryptedVault.length} ${decryptedVault.length === 1 ? 'Eintrag' : 'Einträge'}`"
-      />
-    </div>
-
-    <q-list v-if="decryptedVault.length" class="password-list__list q-pa-sm">
+    <q-list v-if="vaultStore.currentVault().length" class="password-list__list q-pa-sm">
       <basic-list-item
-        v-for="(item, index) in decryptedVault"
-        :key="`vault-${index}`"
+        v-for="(item) in vaultStore.currentVault()"
+        :key="item.id"
         :label="item.name"
         :caption="item.account"
         :website="item.website"
         class="non-selectable"
         clickable
         border
-        @click="vaultStore.activateField(item)"
+        @click="vaultStore.activeFieldId = item.id"
       >
         <template #right>
           <basic-icon name="chevron_right" size="18px" color="muted" />
