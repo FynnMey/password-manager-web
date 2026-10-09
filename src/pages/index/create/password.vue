@@ -7,22 +7,17 @@ import BasicIcon from '@/components/common/icon/BasicIcon.vue'
 import BasicDivider from '@/components/common/divider/BasicDivider.vue'
 import {reactive, ref} from 'vue'
 import { usePassword } from '@/composabiles/usePassword'
-import { Http } from '@/services/http/Http'
-import { useCryptoStore } from '@/stores/cryptoStore'
-import { useNotificationAdapter } from '@/composabiles/adapter/notification/useNotificationAdapter'
-import { useVaultStore } from '@/stores/vaultStore'
-import { VaultRequest } from '@/types/Request/VaultRequest'
 import {VaultField} from "@/types/VaultField";
+import {useEntry} from "@/composabiles/useEntry";
+import {CreatePasswordFields} from "@/types/CreatePasswordFields";
+import {useRouter} from "vue-router";
 
 const { generatePassword } = usePassword()
-const notify = useNotificationAdapter()
 
-const cryptoStore = useCryptoStore()
-const vaultStore = useVaultStore()
+const { createEntry } = useEntry()
 
-const http = new Http()
-
-const form = reactive({
+const form = reactive<VaultField>({
+  id: '',
   name: '',
   account: '',
   password: '',
@@ -32,41 +27,66 @@ const form = reactive({
   editedAt: '',
 })
 
+const fields = ref<CreatePasswordFields>([
+  {
+    name: 'name',
+    label: 'Name / Bezeichnung',
+    icon: 'label_outline',
+    type: 'text'
+  },
+  {
+    value: 'Login-Daten',
+    type: 'seperator',
+  },
+  {
+    name: 'account',
+    label: 'E-Mail / Benutzername',
+    icon: 'alternate_email',
+    type: 'text'
+  },
+  {
+    name: 'password',
+    label: 'Passwort',
+    icon: 'password',
+    type: 'password',
+  },
+  {
+    type: 'button',
+    value: 'Sicheres Passwort generieren',
+    icon: 'auto_awesome',
+    click: () => randomPassword(),
+  },
+  {
+    value: 'Weitere Infos',
+    type: 'seperator',
+  },
+  {
+    name: 'website',
+    label: 'Webseite (optional)',
+    icon: 'language',
+    type: 'text',
+  },
+  {
+    name: 'note',
+    label: 'Notiz (optional)',
+    icon: 'note',
+    type: 'textarea',
+  },
+])
+
 const isLoading = ref(false)
 
 const randomPassword = () => {
   form.password = generatePassword()
 }
 
+const router = useRouter()
 const save = async () => {
   isLoading.value = true
+  await createEntry(form)
+  isLoading.value = false
 
-  await http.post<VaultRequest>('/api/user/password/create', {
-    encryptedName: await cryptoStore.encrypt(form.name),
-    encryptedEmail: await cryptoStore.encrypt(form.account),
-    encryptedPassword: await cryptoStore.encrypt(form.password),
-    encryptedWebsite: await cryptoStore.encrypt(form.website),
-    encryptedNote: await cryptoStore.encrypt(form.note),
-  }).then((result) => {
-    if (result.success) {
-      vaultStore.addSingleField(
-        {
-          id: result.data.id,
-          ...form,
-          editedAt: result.data.editedAt,
-          createdAt: result.data.createdAt
-        }
-      )
-      notify.success('Passwort erfolgreich gespeichert')
-
-      return
-    }
-    notify.error('Passwort konnte nicht gespeichert werden')
-  }).catch(() => {
-    notify.error('Passwort konnte nicht gespeichert werden')
-  }).finally(() => {
-    isLoading.value = false
-  })
+  router.push('/')
 }
 
 const canSave = () => form.account.length > 0 && form.password.length > 0
@@ -87,72 +107,31 @@ const canSave = () => form.account.length > 0 && form.password.length > 0
       </div>
 
       <q-form @submit.prevent="save" class="row q-col-gutter-md">
+        <div v-for="element in fields" class="col-12">
+          <basic-divider v-if="element.type === 'seperator'" :label="element.value" />
 
-        <div class="col-12">
-          <div class="section-label q-mb-sm">Allgemein</div>
-        </div>
+          <div class="col-12" v-else-if="element.type === 'button'">
+            <basic-button
+              :label="element.value"
+              :icon="element.icon ?? ''"
+              variant="secondary"
+              size="sm"
+              :full-width="false"
+              type="button"
+              @click="element.click"
+            />
+          </div>
 
-        <basic-input
-          v-model="form.name"
-          label="Name / Bezeichnung"
-          icon="label_outline"
-          class="col-12"
-          :disable="isLoading"
-        />
-
-        <div class="col-12">
-          <basic-divider label="Login-Daten" />
-        </div>
-
-        <basic-input
-          v-model="form.account"
-          label="E-Mail / Benutzername"
-          icon="alternate_email"
-          class="col-12"
-          :disable="isLoading"
-        />
-
-        <basic-input
-          v-model="form.password"
-          label="Passwort"
-          icon="lock_outline"
-          type="password"
-          class="col-12"
-          :disable="isLoading"
-        />
-
-        <div class="col-12">
-          <basic-button
-            label="Sicheres Passwort generieren"
-            icon="auto_awesome"
-            variant="secondary"
-            size="sm"
-            :full-width="false"
-            type="button"
-            @click="randomPassword"
+          <basic-input
+            v-else
+            v-model="form[element.name]"
+            :label="element.label"
+            :icon="element.icon"
+            class="col-12"
+            :type="element.type"
+            :disable="isLoading"
           />
         </div>
-
-        <div class="col-12">
-          <basic-divider label="Weitere Infos" />
-        </div>
-
-        <basic-input
-          v-model="form.website"
-          label="Webseite (optional)"
-          icon="language"
-          class="col-12"
-          :disable="isLoading"
-        />
-
-        <basic-input
-          v-model="form.note"
-          label="Notiz (optional)"
-          icon="notes"
-          type="textarea"
-          class="col-12"
-          :disable="isLoading"
-        />
 
         <div class="col-12">
           <basic-button
@@ -161,13 +140,10 @@ const canSave = () => form.account.length > 0 && form.password.length > 0
             type="submit"
             :loading="isLoading"
             :disable="!canSave()"
-          />
+            />
         </div>
 
       </q-form>
     </basic-card>
   </div>
 </template>
-
-<style scoped lang="scss">
-</style>
