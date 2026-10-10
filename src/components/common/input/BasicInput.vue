@@ -3,7 +3,7 @@ import { QInputType } from 'quasar'
 import { computed, ref } from 'vue'
 import BasicIcon from '@/components/common/icon/BasicIcon.vue'
 
-const model = defineModel<string>({ required: true })
+const model = defineModel<string | number>({ required: true })
 const disable = defineModel<boolean>('disable')
 
 const showPassword = ref(false)
@@ -43,7 +43,6 @@ const inputType = computed(() => {
       dark
       dense
       color="primary"
-      label-color="grey-5"
       class="basic-input"
       bg-color="transparent"
     >
@@ -104,6 +103,11 @@ const inputType = computed(() => {
   :deep(.q-field__marginal) {
     color: $text-muted;
     height: 48px;
+  }
+
+  :deep(.q-field__bottom) {
+    color: $text-muted;
+    font-size: 12px;
   }
 
   :deep(.q-field--focused .q-field__control) {

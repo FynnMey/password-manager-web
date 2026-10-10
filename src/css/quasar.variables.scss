@@ -12,5 +12,11 @@ $warning   : #F59E0B;
 
 $surface      : #1A1D27;
 $border       : #2A2D3E;
-$text-primary : #E2E8F0;
-$text-muted   : #64748B;
+$border-light : #3A3D4E;
+$border-focus : #6366F1;
+
+// Textfarben - optimiert für hervorragende Lesbarkeit auf dunklem Hintergrund
+$text-primary   : #F1F5F9; // Slate-100: Haupttitel, wichtige Werte, primärer Text
+$text-secondary : #CBD5E1; // Slate-300: Fließtexte, sekundäre Labels
+$text-muted     : #94A3B8; // Slate-400: Subtitel, Captions, Icons, Hinweise (optimiert von #64748B)
+$text-subtle    : #64748B; // Slate-500: Deaktivierte Elemente, dezente Trenner

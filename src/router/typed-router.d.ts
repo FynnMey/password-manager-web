@@ -42,6 +42,7 @@ declare module 'vue-router/auto-routes' {
       | '//login'
       | '//logout'
       | '//open/vault'
+      | '//premium/create'
     >,
     '//(index)': RouteRecordInfo<
       '//(index)',
@@ -85,6 +86,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '//premium/create': RouteRecordInfo<
+      '//premium/create',
+      '/premium/create',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/[...path]': RouteRecordInfo<
       '/[...path]',
       '/:path(.*)',
@@ -114,6 +122,7 @@ declare module 'vue-router/auto-routes' {
         | '//login'
         | '//logout'
         | '//open/vault'
+        | '//premium/create'
       views:
         | 'default'
       pathParamNames:
@@ -162,6 +171,14 @@ declare module 'vue-router/auto-routes' {
     'src/pages/index/open/vault.vue': {
       routes:
         | '//open/vault'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/pages/index/premium/create.vue': {
+      routes:
+        | '//premium/create'
       views:
         | never
       pathParamNames:

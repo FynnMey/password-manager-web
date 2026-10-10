@@ -1,4 +1,4 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
 import IconUrl from "@/components/dashboard/IconUrl.vue"
 
 withDefaults(defineProps<{
@@ -53,7 +53,7 @@ defineEmits<{
   border: 1px solid transparent;
 
   &--border {
-    border: 1px solid #2b2e42!important;
+    border: 1px solid $border !important;
   }
 
   &:last-child {

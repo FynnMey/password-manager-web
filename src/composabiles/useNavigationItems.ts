@@ -1,4 +1,9 @@
-import {NavigationLinkProps} from "@/types/navigation/NavigationLinkProps";
+import {NavigationLinkProps} from "@/types/navigation/NavigationLinkProps"
+import {useUserStore} from "@/stores/userStore";
+import {storeToRefs} from "pinia";
+
+const userStore = useUserStore()
+const { isAdmin } = storeToRefs(userStore)
 
 export const useNavigationItems: NavigationLinkProps[] = [
   {
@@ -12,6 +17,14 @@ export const useNavigationItems: NavigationLinkProps[] = [
     icon: "school",
     link: "/#/create/masterPassword"
   },
+  ...(isAdmin.value ? [
+    {
+      label: "Code erstellen",
+      caption: "Premium code",
+      icon: "diamond",
+      link: "/#/premium/create"
+    },
+  ] : []),
   {
     label: "Login",
     icon: "login",

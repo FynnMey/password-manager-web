@@ -39,7 +39,7 @@ const copyText = async (text: string, label: string) => {
     <div class="col overflow-hidden q-pr-sm">
       <div class="section-label q-mb-xs">{{ label }}</div>
 
-      <span v-if="isPassword && !showPassword" class="text-grey-6 text-weight-bold non-selectable" style="letter-spacing: 2px;">
+      <span v-if="isPassword && !showPassword" class="text-muted text-weight-bold non-selectable" style="letter-spacing: 2px;">
         ••••••••••••••••
       </span>
 

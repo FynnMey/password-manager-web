@@ -87,7 +87,7 @@ withDefaults(defineProps<{
 
     &:hover:not(.disabled) {
       background: rgba(255, 255, 255, 0.05);
-      border-color: #3A3D4E;
+      border-color: $border-light;
       color: $text-primary;
     }
   }

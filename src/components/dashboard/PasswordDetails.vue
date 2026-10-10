@@ -83,7 +83,7 @@ const saveEntry = async (updatedData: VaultField) => {
 
         <div
           v-if="formatDate(activeField.createdAt) || formatDate(activeField.editedAt)"
-          class="row items-center justify-between q-pt-sm text-caption text-grey-5"
+          class="row items-center justify-between q-pt-sm text-caption text-muted"
         >
           <span v-if="formatDate(activeField.createdAt)">
             Erstellt: {{ formatDate(activeField.createdAt) }}

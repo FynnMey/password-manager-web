@@ -1,5 +1,6 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
 import BasicCard from '@/components/common/card/BasicCard.vue'
+import BasicForm from '@/components/common/form/BasicForm.vue'
 import BasicInput from '@/components/common/input/BasicInput.vue'
 import BasicButton from '@/components/common/button/BasicButton.vue'
 import BasicIconBox from '@/components/common/icon/BasicIconBox.vue'
@@ -7,10 +8,10 @@ import BasicIcon from '@/components/common/icon/BasicIcon.vue'
 import BasicDivider from '@/components/common/divider/BasicDivider.vue'
 import {reactive, ref} from 'vue'
 import { usePassword } from '@/composabiles/usePassword'
-import {VaultField} from "@/types/VaultField";
-import {useEntry} from "@/composabiles/useEntry";
-import {CreatePasswordFields} from "@/types/CreatePasswordFields";
-import {useRouter} from "vue-router";
+import {VaultField} from "@/types/VaultField"
+import {useEntry} from "@/composabiles/useEntry"
+import {CreatePasswordFields} from "@/types/Request/CreatePasswordFields"
+import {useRouter} from "vue-router"
 
 const { generatePassword } = usePassword()
 
@@ -106,7 +107,7 @@ const canSave = () => form.account.length > 0 && form.password.length > 0
         </div>
       </div>
 
-      <q-form @submit.prevent="save" class="row q-col-gutter-md">
+      <basic-form class="row q-col-gutter-md" @submit="save">
         <div v-for="element in fields" class="col-12">
           <basic-divider v-if="element.type === 'seperator'" :label="element.value" />
 
@@ -143,7 +144,7 @@ const canSave = () => form.account.length > 0 && form.password.length > 0
             />
         </div>
 
-      </q-form>
+      </basic-form>
     </basic-card>
   </div>
 </template>

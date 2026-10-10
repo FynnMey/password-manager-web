@@ -1,11 +1,25 @@
+// Text Utility Classes
+.text-primary {
+  color: $text-primary !important;
+}
+
+.text-secondary {
+  color: $text-secondary !important;
+}
+
 .text-muted {
-  color: $text-muted;
+  color: $text-muted !important;
+}
+
+.text-subtle {
+  color: $text-subtle !important;
 }
 
 .text-body {
-  color: $text-primary;
+  color: $text-secondary;
 }
 
+// Background & Surface Utility Classes
 .bg-surface {
   background: $surface;
 }
@@ -16,6 +30,10 @@
 
 .border-subtle {
   border: 1px solid $border;
+}
+
+.border-light {
+  border: 1px solid $border-light;
 }
 
 .gradient-text {

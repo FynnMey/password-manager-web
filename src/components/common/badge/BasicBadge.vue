@@ -1,35 +1,22 @@
 <script setup lang="ts">
 import BasicIcon from '@/components/common/icon/BasicIcon.vue'
 
-withDefaults(defineProps<{
-  label?: string
-  icon?: string | undefined
-  color?: 'primary' | 'positive' | 'negative' | 'warning' | 'info' | 'grey'
-  dot?: boolean
-}>(), {
-  color: 'primary',
-})
-
-const colorMap = {
-  primary:  { bg: 'rgba(99,102,241,0.15)',  border: 'rgba(99,102,241,0.35)',  text: '#818CF8' },
-  positive: { bg: 'rgba(16,185,129,0.12)',  border: 'rgba(16,185,129,0.3)',   text: '#34D399' },
-  negative: { bg: 'rgba(239,68,68,0.12)',   border: 'rgba(239,68,68,0.3)',    text: '#F87171' },
-  warning:  { bg: 'rgba(245,158,11,0.12)',  border: 'rgba(245,158,11,0.3)',   text: '#FCD34D' },
-  info:     { bg: 'rgba(56,189,248,0.12)',  border: 'rgba(56,189,248,0.3)',   text: '#7DD3FC' },
-  grey:     { bg: 'rgba(100,116,139,0.12)', border: 'rgba(100,116,139,0.3)',  text: '#94A3B8' },
-}
+withDefaults(
+  defineProps<{
+    label?: string
+    icon?: string | undefined
+    color?: 'primary' | 'positive' | 'negative' | 'warning' | 'info' | 'grey'
+    dot?: boolean
+  }>(),
+  {
+    color: 'primary',
+  }
+)
 </script>
 
 <template>
-  <span
-    class="basic-badge"
-    :style="{
-      background: colorMap[color].bg,
-      border: `1px solid ${colorMap[color].border}`,
-      color: colorMap[color].text,
-    }"
-  >
-    <span v-if="dot" class="basic-badge__dot" :style="{ background: colorMap[color].text }" />
+  <span :class="['basic-badge', `basic-badge--${color}`]">
+    <span v-if="dot" class="basic-badge__dot" />
     <basic-icon v-if="icon" :name="icon" size="12px" class="q-mr-xs" />
     <span v-if="label">{{ label }}</span>
     <slot />
@@ -54,6 +41,43 @@ const colorMap = {
     border-radius: 50%;
     flex-shrink: 0;
     animation: pulse-dot 2s ease-in-out infinite;
+    background: currentColor;
+  }
+
+  &--primary {
+    background: rgba($primary, 0.15);
+    border: 1px solid rgba($primary, 0.35);
+    color: $secondary;
+  }
+
+  &--positive {
+    background: rgba($positive, 0.12);
+    border: 1px solid rgba($positive, 0.3);
+    color: #34D399;
+  }
+
+  &--negative {
+    background: rgba($negative, 0.12);
+    border: 1px solid rgba($negative, 0.3);
+    color: #F87171;
+  }
+
+  &--warning {
+    background: rgba($warning, 0.12);
+    border: 1px solid rgba($warning, 0.3);
+    color: #FCD34D;
+  }
+
+  &--info {
+    background: rgba($info, 0.12);
+    border: 1px solid rgba($info, 0.3);
+    color: #7DD3FC;
+  }
+
+  &--grey {
+    background: rgba($text-muted, 0.12);
+    border: 1px solid rgba($text-muted, 0.3);
+    color: $text-muted;
   }
 }
 

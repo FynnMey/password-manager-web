@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive, watch } from 'vue'
 import type { VaultField } from '@/types/VaultField'
+import BasicForm from '@/components/common/form/BasicForm.vue'
 import BasicInput from '@/components/common/input/BasicInput.vue'
 import BasicButton from '@/components/common/button/BasicButton.vue'
 import { usePassword } from '@/composabiles/usePassword'
@@ -65,7 +66,7 @@ const onCancel = () => {
 </script>
 
 <template>
-  <q-form @submit.prevent="onSave" class="q-gutter-y-sm q-mt-xs">
+  <basic-form class="q-gutter-y-sm q-mt-xs" @submit="onSave">
     <basic-input
       v-model="form.name"
       label="Name / Bezeichnung"
@@ -143,5 +144,5 @@ const onCancel = () => {
         </div>
       </div>
     </slot>
-  </q-form>
+  </basic-form>
 </template>
